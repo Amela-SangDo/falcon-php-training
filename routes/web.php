@@ -20,3 +20,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/task', [App\Http\Controllers\TaskController::class, 'task'])->name('task');
+Route::resource('/task', 'App\Http\Controllers\CreatetaskController', ['only' => [
+    'create', 'store', 'edit'] 
+]);
+Route::get('/task-list', [App\Http\Controllers\CreatetaskController::class, 'index'])->name('task-list');
