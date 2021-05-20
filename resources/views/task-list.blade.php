@@ -20,8 +20,8 @@
             <td>{{$p->status }}</td>
             
             <td>
-                <a href="{{ '/task/' . $p->id . '/edit'}}"><span class="glyphicon glyphicon-pencil">Edit</span></a>
-                <a href="{{ '/task/' . $p->id }}"><span class="glyphicon glyphicon-trash">Delete</span></a>
+                <a ><span class="glyphicon glyphicon-pencil">Edit</span></a>
+                <a ><span class="glyphicon glyphicon-trash">Delete</span></a>
             </td>
         </tr>
         @endforeach

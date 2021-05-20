@@ -24,4 +24,4 @@ Route::get('/task', [App\Http\Controllers\TaskController::class, 'task'])->name(
 Route::resource('/task', 'App\Http\Controllers\CreatetaskController', ['only' => [
     'create', 'store', 'edit'] 
 ]);
-Route::get('/task-list', [App\Http\Controllers\CreatetaskController::class, 'index'])->name('task-list');
+Route::get('/task-list', [App\Http\Controllers\TasklistController::class, 'index'])->name('task-list');
