@@ -17,11 +17,12 @@
             <td>{{$p->id }}</td>
             <td>{{$p->title }}</td>
             <td>{{$p->description }}</td>
+            <td>{{$p->assign_user }}</td>
             <td>{{$p->status }}</td>
             
             <td>
-                <a ><span class="glyphicon glyphicon-pencil">Edit</span></a>
-                <a ><span class="glyphicon glyphicon-trash">Delete</span></a>
+                <a href="{{ '/product/' . $p->id . '/edit'}}"><span class="glyphicon glyphicon-pencil">Edit</span></a>
+                <a href="{{ '/product/' . $p->id }}"><span class="glyphicon glyphicon-trash">Delete</span></a>
             </td>
         </tr>
         @endforeach

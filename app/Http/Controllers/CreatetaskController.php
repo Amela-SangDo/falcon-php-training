@@ -11,11 +11,7 @@ class CreatetaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $tasks = Task::all();
-        return view('task-list')->with($tasks);
-    }
+    
 
     /**
      * Show the form for creating a new resource.
