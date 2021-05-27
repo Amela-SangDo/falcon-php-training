@@ -17,7 +17,7 @@
             {!! Form::text('description', isset($description)?$description:'', array('class' => 'form-control', 'placeholder' => 'Mô tả task')) !!}
          </div>
       </div>
-
+      
       <div class="form-group">
          {!! Form::label('assign_user', 'Assign user', array('class' => 'col-sm-2 control-label')) !!}
          <div class="col-sm-10">

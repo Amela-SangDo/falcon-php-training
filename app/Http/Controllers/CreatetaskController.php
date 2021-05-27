@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
-
+use DB;
 class CreatetaskController extends Controller
 {
     /**
@@ -60,7 +60,8 @@ class CreatetaskController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tasks = DB::table('task')->find($id);
+        return view('edit', compact('tasks'));
     }
 
     /**
@@ -72,7 +73,16 @@ class CreatetaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $updated = DB::table('task')
+        ->where('id', '=', $id)
+        ->update([
+            'title'       => $request->input('title'),
+            'description'      => $request->input('description'),
+            'status'    => $request->input('status'),
+            'updated_at' => \Carbon\Carbon::now()
+            ]);
+        
+        return redirect()->route('task-list');
     }
 
     /**

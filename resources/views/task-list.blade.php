@@ -21,8 +21,8 @@
             <td>{{$p->status }}</td>
             
             <td>
-                <a href="{{ '/product/' . $p->id . '/edit'}}"><span class="glyphicon glyphicon-pencil">Edit</span></a>
-                <a href="{{ '/product/' . $p->id }}"><span class="glyphicon glyphicon-trash">Delete</span></a>
+                <a href="{{ '/task-list/' . $p->id . '/edit'}}">Edit</span></a>
+                <a href="{{'/delete-task'}}">Delete</span></a>
             </td>
         </tr>
         @endforeach

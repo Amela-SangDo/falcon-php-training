@@ -22,6 +22,8 @@ Auth::routes();
 Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 Route::get('/task', 'App\Http\Controllers\TaskController@task')->name('task');
 Route::resource('/task', 'App\Http\Controllers\CreatetaskController', ['only' => [
-    'create', 'store', 'edit'] 
+    'create', 'store', 'edit', 'update'] 
 ]);
 Route::get('/task-list', 'App\Http\Controllers\TasklistController@index')->name('task-list');
+Route::get('/task-list/{task_id}/edit', 'App\Http\Controllers\CreatetaskController@edit')->name('edit');
+Route::put('/task-list/{id}', 'App\Http\Controllers\CreatetaskController@update')->name('update');
