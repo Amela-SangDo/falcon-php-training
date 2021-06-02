@@ -4,7 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
-
+use App\Models\Task;
+use App\Models\User;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -25,6 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         
+        Gate::define('updatetask', function (User $user, Task $task) {
+            return $user->id == $task->assign_user;
+        });
         
     }
 }

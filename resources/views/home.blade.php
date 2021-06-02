@@ -15,6 +15,13 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <div>
+                    <a href="{{ route('task') }}" class="btn btn-primary">Tạo task</a></div>
+                    <div>
+      <a href="{{ route('task-list') }}" class="btn btn-primary">
+         {{ __('Task list') }}
+      </a>
+   </div>
                 </div>
             </div>
         </div>

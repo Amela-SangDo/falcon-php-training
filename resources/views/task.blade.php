@@ -17,6 +17,7 @@
             {!! Form::text('description', isset($description)?$description:'', array('class' => 'form-control', 'placeholder' => 'Mô tả task')) !!}
          </div>
       </div>
+      @if (auth()->user()->isAdmin())
       
       <div class="form-group">
          {!! Form::label('assign_user', 'Assign user', array('class' => 'col-sm-2 control-label')) !!}
@@ -24,6 +25,8 @@
             {!! Form::text('assign_user', '', array('class' => 'form-control', 'placeholder' => 'Phân nhiệm vụ cho user')) !!}
          </div>
       </div>
+      
+      @endif
 
       <div class="form-group">
          {!! Form::label('status', 'Trạng thái', array('class' => 'col-sm-2 control-label')) !!}
@@ -34,8 +37,14 @@
 
       <div class="form-group">
       <button type="submit" class="btn btn-primary">
-                                    {{ __('Create task') }}
-                                </button>
+         {{ __('Create task') }}
+      </button>
       </div>
+      
    {!! Form::close() !!}
+   <div>
+      <a href="{{ route('task-list') }}" class="btn btn-primary">
+         {{ __('Task list') }}
+      </a>
+   </div>
 @endsection
