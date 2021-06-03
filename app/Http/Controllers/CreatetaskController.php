@@ -35,24 +35,15 @@ class CreatetaskController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::User()->isAdmin()){
+        
         $task          = new Task;
         $task->title    = $request->input('title');
         $task->description   = $request->input('description');
-        $task->assign_user = $request->input('assign_user');
+        $task->assign_user =Auth::user()->isAdmin()? $request->input('assign_user'): Auth::user()->id;
         $task->status  = $request->input('status');
         $task->save();
             return redirect('task');
-        }
-        else {
-            $task          = new Task;
-            $task->title    = $request->input('title');
-            $task->description   = $request->input('description');
-            $task->assign_user = Auth::User()->id;
-            $task->status  = $request->input('status');
-            $task->save();
-                return redirect('task');
-        }
+        
     }
 
     /**
