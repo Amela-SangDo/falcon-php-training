@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
-// use Auth;
+use Auth;
 
 class CreatetaskController extends Controller
 {
@@ -35,7 +35,7 @@ class CreatetaskController extends Controller
      */
     public function store(Request $request)
     {
-        
+        if (Auth::User()->isAdmin()){
         $task          = new Task;
         $task->title    = $request->input('title');
         $task->description   = $request->input('description');
@@ -43,6 +43,16 @@ class CreatetaskController extends Controller
         $task->status  = $request->input('status');
         $task->save();
             return redirect('task');
+        }
+        else {
+            $task          = new Task;
+            $task->title    = $request->input('title');
+            $task->description   = $request->input('description');
+            $task->assign_user = Auth::User()->id;
+            $task->status  = $request->input('status');
+            $task->save();
+                return redirect('task');
+        }
     }
 
     /**

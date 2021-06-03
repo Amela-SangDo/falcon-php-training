@@ -13,4 +13,7 @@ class Task extends Model
     {
         return $this->belongsTo('App\Models\User');
     }
+    //public function setAssignUserAttribute($value){
+       // $this->attributes['assign_user'] == User($name);
+    
 }

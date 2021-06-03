@@ -24,8 +24,9 @@
          <div class="col-sm-10">
             {!! Form::text('assign_user', '', array('class' => 'form-control', 'placeholder' => 'Phân nhiệm vụ cho user')) !!}
          </div>
-      </div>
+      </div>  
       
+
       @endif
 
       <div class="form-group">
