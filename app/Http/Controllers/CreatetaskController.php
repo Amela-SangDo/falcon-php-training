@@ -35,12 +35,11 @@ class CreatetaskController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $task          = new Task;
-        $task->title    = $request->input('title');
-        $task->description   = $request->input('description');
-        $task->assign_user =Auth::user()->isAdmin()? $request->input('assign_user'): Auth::user()->id;
-        $task->status  = $request->input('status');
+        $task = new Task;
+        $task->title = $request->input('title');
+        $task->description = $request->input('description');
+        $task->assign_user =Auth::user()->isAdmin() ? $request->input('assign_user') : Auth::user()->id;
+        $task->status = $request->input('status');
         $task->save();
             return redirect('task');
         
@@ -78,20 +77,17 @@ class CreatetaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $task = Task::find($id);
         if (Gate::allows('updatetask', $task) || \Auth::user()->isAdmin()) {
-
         $update = DB::table('task')
         ->where('id', '=', $id)
         ->update([
-            'title'       => $request->input('title'),
-            'description'      => $request->input('description'),
-            'status'    => $request->input('status'),
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
             ]);
         return redirect()->route('task-list');
-        }
-    else{
+        } else {
         abort(404);
         }
     }

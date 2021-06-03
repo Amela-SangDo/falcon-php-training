@@ -25,8 +25,6 @@
             {!! Form::text('assign_user', '', array('class' => 'form-control', 'placeholder' => 'Phân nhiệm vụ cho user')) !!}
          </div>
       </div>  
-      
-
       @endif
 
       <div class="form-group">
