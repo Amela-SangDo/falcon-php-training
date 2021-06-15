@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Gate;
+use App\Models\User;
+use Auth;
+
 class CreatetaskController extends Controller
 {
     /**
@@ -31,14 +35,14 @@ class CreatetaskController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $task          = new Task;
-        $task->title    = $request->input('title');
-        $task->description   = $request->input('description');
-        $task->assign_user = $request->input('assign_user');
-        $task->status  = $request->input('status');
+        $task = new Task;
+        $task->title = $request->input('title');
+        $task->description = $request->input('description');
+        $task->assign_user =Auth::user()->isAdmin() ? $request->input('assign_user') : Auth::user()->id;
+        $task->status = $request->input('status');
         $task->save();
             return redirect('task');
+        
     }
 
     /**
@@ -73,16 +77,19 @@ class CreatetaskController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updated = DB::table('task')
+        $task = Task::find($id);
+        if (Gate::allows('updatetask', $task) || \Auth::user()->isAdmin()) {
+        $update = DB::table('task')
         ->where('id', '=', $id)
         ->update([
-            'title'       => $request->input('title'),
-            'description'      => $request->input('description'),
-            'status'    => $request->input('status'),
-            'updated_at' => \Carbon\Carbon::now()
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'status' => $request->input('status'),
             ]);
-        
         return redirect()->route('task-list');
+        } else {
+        abort(404);
+        }
     }
 
     /**
