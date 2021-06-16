@@ -18,7 +18,11 @@ use Illuminate\Support\Facades\Http;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::post('login', 'Api\UserController@login');
 Route::post('register', 'Api\UserController@register');
-
-Route::get('/tasks', 'Api\UserController@getTasks')->middleware('auth:api');
+Route::get('/task', 'Api\TaskController@index');
+Route::post('/task', 'Api\TaskController@store')->middleware('auth:api');
+Route::get('/task/{task}', 'Api\TaskController@show');
+Route::patch('task/{task}', 'Api\TaskController@update')->middleware(['auth:api','canupdate']);
+Route::delete('task/{task}', 'Api\TaskController@destroy')->middleware(['auth:api','candelete']);
