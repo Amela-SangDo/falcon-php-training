@@ -9,6 +9,7 @@ use App\Models\User;
 use Auth;
 use App\Jobs\SendAssignMail;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 class CreatetaskController extends Controller
 {
     /**
@@ -44,8 +45,12 @@ class CreatetaskController extends Controller
         $task->status = $request->input('status');
         $task->save();
         $request->flash(['assign_user']);
+        $email = DB::table('users')->where('id', $request->input('assign_user'))->pluck('email');
+        //$email = User::find($request->input('assign_user'), $column=['email']);
+        Cache::forever('email', $email);
+
         if(Auth::user()->isAdmin()){
-           $email = User::find($request->input('assign_user'), $column=['email']);
+           //$email = User::find($request->input('assign_user'), $column=['email']);
            dispatch(new SendAssignMail($task, $email));
           // SendAssignMail::dispatch($task, $email);
         }
