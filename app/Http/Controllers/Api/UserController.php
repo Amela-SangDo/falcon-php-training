@@ -75,8 +75,5 @@ class UserController extends Controller
         ]);
     }
     
-    public function getTasks(Request $request)
-    {
-        dd(\Auth::user());
-    }
+    
 }
