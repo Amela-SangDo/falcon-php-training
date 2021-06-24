@@ -7,7 +7,8 @@ use DB;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Auth;
-
+use App\Jobs\SendAssignMail;
+use Illuminate\Support\Facades\Mail;
 class CreatetaskController extends Controller
 {
     /**
@@ -33,15 +34,22 @@ class CreatetaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public static $email;
     public function store(Request $request)
     {
         $task = new Task;
         $task->title = $request->input('title');
         $task->description = $request->input('description');
-        $task->assign_user =Auth::user()->isAdmin() ? $request->input('assign_user') : Auth::user()->id;
+        $task->assign_user = Auth::user()->isAdmin() ? $request->input('assign_user') : Auth::user()->id;
         $task->status = $request->input('status');
         $task->save();
-            return redirect('task');
+        $request->flash(['assign_user']);
+        if(Auth::user()->isAdmin()){
+           $email = User::find($request->input('assign_user'), $column=['email']);
+           dispatch(new SendAssignMail($task, $email));
+          // SendAssignMail::dispatch($task, $email);
+        }
+        return redirect('task');
         
     }
 
@@ -100,6 +108,7 @@ class CreatetaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::find($id);
+        $task->delete();
     }
 }
