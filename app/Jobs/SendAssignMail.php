@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AssignMail;
-use App\Http\Controllers\CreatetaskController;
+use Illuminate\Support\Facades\Cache;
 class SendAssignMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -30,7 +30,8 @@ class SendAssignMail implements ShouldQueue
     public function __construct(Task $task, $email)
     {
        $this->task = $task;
-       $this->email = $email->email;
+       $this->email = Cache::get('email');
+    //   $this->email = $email->email;
     //    logger()->info(['t' => $this->task, 'e' => $this->email]);
     }
 
