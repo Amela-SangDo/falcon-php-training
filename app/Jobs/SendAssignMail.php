@@ -15,6 +15,7 @@ use Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AssignMail;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 class SendAssignMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -31,6 +32,8 @@ class SendAssignMail implements ShouldQueue
     {
        $this->task = $task;
        $this->email = Cache::get('email');
+    //   $this->email = Cache::get('email');
+       logger()->info([$this->email]);
     //   $this->email = $email->email;
     //    logger()->info(['t' => $this->task, 'e' => $this->email]);
     }

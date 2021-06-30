@@ -10,6 +10,7 @@ use Auth;
 use App\Jobs\SendAssignMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Redis;
 class CreatetaskController extends Controller
 {
     /**
@@ -46,9 +47,10 @@ class CreatetaskController extends Controller
         $task->save();
         $request->flash(['assign_user']);
         $email = DB::table('users')->where('id', $request->input('assign_user'))->pluck('email');
+        //$email = DB::table('users')->where('id', $request->input('assign_user'))->first('email');
         //$email = User::find($request->input('assign_user'), $column=['email']);
-        Cache::forever('email', $email);
-
+        Cache::put('email', $email, 600);
+        //Redis::set('email', $email);
         if(Auth::user()->isAdmin()){
            //$email = User::find($request->input('assign_user'), $column=['email']);
            dispatch(new SendAssignMail($task, $email));

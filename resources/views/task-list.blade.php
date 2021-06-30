@@ -27,4 +27,5 @@
         </tr>
         @endforeach
     </table>
+    {{ $tasks->links() }}
 @endsection
