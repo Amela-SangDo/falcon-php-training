@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@extends('layouts.lang')
 
 @section('title', 'Danh sách task')
 
@@ -6,10 +7,10 @@
     <table class="table table-bordered">
         <tr class="success">
             <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Assigned user</th>
-            <th>Status</th>
+            <th>{{ __('message.title') }}</th>
+            <th>{{ __('message.description') }}</th>
+            <th>{{ __('message.assign') }}</th>
+            <th>{{ __('message.status') }}</th>
         
         </tr>
         @foreach($tasks as $p)
@@ -27,4 +28,5 @@
         </tr>
         @endforeach
     </table>
+    {{ $tasks->links() }}
 @endsection

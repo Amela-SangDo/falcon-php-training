@@ -9,7 +9,7 @@ class TasklistController extends Controller
             
     public function index()
     {
-        $tasks = Task::all();
+        $tasks = Task::paginate(10);
         return view('task-list', ['tasks' => $tasks]);
         //view('task-list', compact('tasks'));
         //view('task-list')->with(["key"=>$tasks]);
